@@ -1,6 +1,6 @@
 /* ============================================================================
  *  Ascend Vacation — website content
- *  Saved from the Manage dashboard on 7/4/2026, 8:09:49 PM.
+ *  Saved from the Manage dashboard on 7/4/2026, 8:12:40 PM.
  *  This file holds everything shown on the site. You can hand-edit it too.
  * ============================================================================ */
 
@@ -178,7 +178,7 @@ const SITE = {
       "name": "Single room",
       "occupancy": "1 guest",
       "priceFrom": 4300,
-      "image": "images/single-room.jpg",
+      "image": "images/single-room.png",
       "features": [
         "Enjoy your own private space with a cozy single cabin, thoughtfully designed for solo travelers seeking comfort, privacy, and convenience throughout their liveaboard journey."
       ]
