@@ -97,6 +97,11 @@ email you; it can't read anything.
 > "Book this trip" buttons on the Trips/Home cards pre-select that expedition on the
 > booking form via a `?trip=` link.
 
+The form asks for **number of guests, expedition, departure, and cabins**. Guests pick
+how many of each cabin they want with +/- steppers, and a live counter checks the berths
+cover the group. The cabin inventory (currently **12 Double, 1 Triple, 1 Single**) lives
+in `js/data.js` under `booking.rooms` — edit `name`, `sleeps` (beds) and `count` there.
+
 ### 2. Editing `js/data.js` by hand
 
 You can still edit `js/data.js` directly in a text editor — everything is labelled

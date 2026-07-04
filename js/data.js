@@ -233,6 +233,13 @@ const SITE = {
     intro:
       "Tell us which expedition you have in mind and we'll check availability and email you back within 24 hours. No payment now — this is a request, not a charge.",
     successMessage:
-      "Thank you! Your booking request is in. We'll email you within 24 hours to confirm availability and the next steps."
+      "Thank you! Your booking request is in. We'll email you within 24 hours to confirm availability and the next steps.",
+    /* The vessel's cabin inventory — used by the booking form's room picker.
+       "sleeps" = beds per cabin, "count" = how many of that cabin on board.     */
+    rooms: [
+      { id: "double", name: "Double cabin", sleeps: 2, count: 12, note: "Queen or twin beds, en-suite" },
+      { id: "triple", name: "Triple cabin", sleeps: 3, count: 1, note: "Great for families or friends" },
+      { id: "single", name: "Single cabin", sleeps: 1, count: 1, note: "Solo occupancy, no sharing" }
+    ]
   }
 };

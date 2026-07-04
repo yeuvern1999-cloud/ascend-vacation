@@ -306,8 +306,20 @@ function renderBooking() {
 
   const tripSel = $("#bk-trip");
   const depSel = $("#bk-departure");
-  const cabinSel = $("#bk-cabin");
+  const guestsEl = $("#bk-guests");
+  const roomsWrap = $("#bk-rooms");
+  const berthEl = $("#bk-berths");
   const note = $("#bk-note");
+
+  // The vessel's cabin inventory (falls back to a default if not set in data.js).
+  const rooms =
+    booking.rooms && booking.rooms.length
+      ? booking.rooms
+      : [
+          { id: "double", name: "Double cabin", sleeps: 2, count: 12 },
+          { id: "triple", name: "Triple cabin", sleeps: 3, count: 1 },
+          { id: "single", name: "Single cabin", sleeps: 1, count: 1 }
+        ];
 
   // Which trip should be preselected? (from ?trip=id)
   const preselectId = new URLSearchParams(location.search).get("trip");
@@ -325,12 +337,62 @@ function renderBooking() {
     tripSel.value = preselectId;
   }
 
-  // Cabin options.
-  cabinSel.innerHTML =
-    `<option value="No preference">No preference</option>` +
-    DATA.cabins
-      .map((c) => `<option value="${c.name}">${c.name} — from ${money(c.priceFrom)}pp</option>`)
-      .join("");
+  // Cabin picker — one quantity stepper per cabin type.
+  roomsWrap.innerHTML = rooms
+    .map(
+      (r) => `
+      <div class="room-row" data-room-row="${r.id}">
+        <div class="room-row__info">
+          <span class="room-row__name">${r.name}</span>
+          <span class="room-row__meta">Sleeps ${r.sleeps} · ${r.count} on board${r.note ? " · " + r.note : ""}</span>
+        </div>
+        <div class="stepper" data-room="${r.id}" data-sleeps="${r.sleeps}" data-max="${r.count}">
+          <button type="button" class="stepper__btn" data-step="-1" aria-label="Fewer ${r.name}">−</button>
+          <input class="stepper__val" type="number" name="room_${r.id}" value="0" min="0" max="${r.count}" readonly aria-label="${r.name} quantity" />
+          <button type="button" class="stepper__btn" data-step="1" aria-label="More ${r.name}">＋</button>
+        </div>
+      </div>`
+    )
+    .join("");
+
+  const updateBerths = () => {
+    let berths = 0;
+    let cabins = 0;
+    roomsWrap.querySelectorAll(".stepper").forEach((s) => {
+      const qty = +s.querySelector(".stepper__val").value || 0;
+      berths += qty * +s.dataset.sleeps;
+      cabins += qty;
+      const row = s.closest(".room-row");
+      if (row) row.classList.toggle("is-picked", qty > 0);
+      s.querySelector('[data-step="-1"]').disabled = qty <= 0;
+      s.querySelector('[data-step="1"]').disabled = qty >= +s.dataset.max;
+    });
+    const pax = +guestsEl.value || 0;
+    berthEl.classList.remove("is-short", "is-ok");
+    if (cabins === 0) {
+      berthEl.innerHTML = `No cabins chosen yet — leave as-is and we'll recommend the best fit for <strong>${pax}</strong> guest${pax === 1 ? "" : "s"}.`;
+    } else if (berths < pax) {
+      berthEl.classList.add("is-short");
+      berthEl.innerHTML = `<strong>${cabins}</strong> cabin${cabins === 1 ? "" : "s"} · <strong>${berths}</strong> berths — not enough for <strong>${pax}</strong> guests. Add another cabin.`;
+    } else {
+      berthEl.classList.add("is-ok");
+      berthEl.innerHTML = `<strong>${cabins}</strong> cabin${cabins === 1 ? "" : "s"} · <strong>${berths}</strong> berths for <strong>${pax}</strong> guests ✓`;
+    }
+  };
+
+  roomsWrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".stepper__btn");
+    if (!btn) return;
+    const stepper = btn.closest(".stepper");
+    const input = stepper.querySelector(".stepper__val");
+    const max = +stepper.dataset.max;
+    let v = (+input.value || 0) + +btn.dataset.step;
+    v = Math.max(0, Math.min(max, v));
+    input.value = v;
+    updateBerths();
+  });
+  guestsEl.addEventListener("input", updateBerths);
+  updateBerths();
 
   // Departure options depend on the chosen trip.
   const fillDepartures = () => {
@@ -387,6 +449,13 @@ function renderBooking() {
 
     const fd = new FormData(form);
     const trip = DATA.trips.find((t) => t.id === fd.get("trip"));
+    const chosenRooms = rooms
+      .map((r) => {
+        const qty = +fd.get("room_" + r.id) || 0;
+        return qty > 0 ? `${qty} × ${r.name}` : null;
+      })
+      .filter(Boolean)
+      .join(", ");
     const payload = {
       access_key: key,
       subject: `New booking request — ${fd.get("name")}`,
@@ -398,7 +467,7 @@ function renderBooking() {
       Guests: fd.get("guests") || "—",
       Expedition: trip ? `${trip.name} (${trip.destination})` : "—",
       "Preferred departure": fd.get("departure") || "—",
-      "Cabin preference": fd.get("cabin") || "—",
+      Cabins: chosenRooms || "No preference — please advise",
       Message: fd.get("message") || "—",
       botcheck: fd.get("botcheck") ? true : false
     };

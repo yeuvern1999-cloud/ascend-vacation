@@ -50,6 +50,17 @@
             <li><strong>We confirm availability</strong> — you'll hear back within 24 hours.</li>
             <li><strong>Secure your spot</strong> — we'll arrange the deposit and paperwork.</li>
           </ol>
+
+          <div class="book-facts">
+            <h3>Cabins aboard <span data-boat-name>MV Ocean Explorer</span></h3>
+            <ul>
+              <li><span>12</span> Double cabins</li>
+              <li><span>1</span> Triple cabin</li>
+              <li><span>1</span> Single cabin</li>
+            </ul>
+            <p class="book-facts__cap">14 cabins · sleeps up to 28 guests</p>
+          </div>
+
           <div class="book-contact">
             <p>Prefer to talk it through?</p>
             <a data-phone href="#" class="book-contact__line">Phone</a>
@@ -63,48 +74,55 @@
           <p class="book-intro" data-booking-intro></p>
 
           <form id="booking-form" class="bform" novalidate>
-            <div class="bform__row">
-              <div class="bform__field">
-                <label for="bk-name">Full name <span class="req">*</span></label>
-                <input id="bk-name" name="name" type="text" autocomplete="name" required />
+            <!-- 1. Expedition -->
+            <fieldset class="bform__section">
+              <legend class="bform__legend"><span class="bform__num">1</span> Your expedition</legend>
+              <div class="bform__row">
+                <div class="bform__field">
+                  <label for="bk-trip">Expedition <span class="req">*</span></label>
+                  <select id="bk-trip" name="trip" required></select>
+                </div>
+                <div class="bform__field">
+                  <label for="bk-departure">Preferred departure</label>
+                  <select id="bk-departure" name="departure"></select>
+                </div>
               </div>
-              <div class="bform__field">
-                <label for="bk-email">Email <span class="req">*</span></label>
-                <input id="bk-email" name="email" type="email" autocomplete="email" required />
+              <div class="bform__field bform__field--narrow">
+                <label for="bk-guests">Number of guests (pax) <span class="req">*</span></label>
+                <input id="bk-guests" name="guests" type="number" min="1" max="28" value="2" inputmode="numeric" />
               </div>
-            </div>
+            </fieldset>
 
-            <div class="bform__row">
-              <div class="bform__field">
+            <!-- 2. Cabins -->
+            <fieldset class="bform__section">
+              <legend class="bform__legend"><span class="bform__num">2</span> Choose your cabins</legend>
+              <p class="bform__hint">Set how many of each cabin you'd like. Not sure yet? Leave them at 0 and we'll recommend the best fit for your group.</p>
+              <div class="room-picker" id="bk-rooms"></div>
+              <div class="berth-meter" id="bk-berths" aria-live="polite"></div>
+            </fieldset>
+
+            <!-- 3. Your details -->
+            <fieldset class="bform__section">
+              <legend class="bform__legend"><span class="bform__num">3</span> Your details</legend>
+              <div class="bform__row">
+                <div class="bform__field">
+                  <label for="bk-name">Full name <span class="req">*</span></label>
+                  <input id="bk-name" name="name" type="text" autocomplete="name" required />
+                </div>
+                <div class="bform__field">
+                  <label for="bk-email">Email <span class="req">*</span></label>
+                  <input id="bk-email" name="email" type="email" autocomplete="email" required />
+                </div>
+              </div>
+              <div class="bform__field bform__field--narrow">
                 <label for="bk-phone">Phone</label>
                 <input id="bk-phone" name="phone" type="tel" autocomplete="tel" />
               </div>
               <div class="bform__field">
-                <label for="bk-guests">Number of guests</label>
-                <input id="bk-guests" name="guests" type="number" min="1" max="16" value="2" />
+                <label for="bk-message">Anything else?</label>
+                <textarea id="bk-message" name="message" rows="4" placeholder="Dive certification level, dietary needs, special occasions, questions…"></textarea>
               </div>
-            </div>
-
-            <div class="bform__row">
-              <div class="bform__field">
-                <label for="bk-trip">Expedition <span class="req">*</span></label>
-                <select id="bk-trip" name="trip" required></select>
-              </div>
-              <div class="bform__field">
-                <label for="bk-departure">Preferred departure</label>
-                <select id="bk-departure" name="departure"></select>
-              </div>
-            </div>
-
-            <div class="bform__field">
-              <label for="bk-cabin">Cabin preference</label>
-              <select id="bk-cabin" name="cabin"></select>
-            </div>
-
-            <div class="bform__field">
-              <label for="bk-message">Anything else?</label>
-              <textarea id="bk-message" name="message" rows="4" placeholder="Dive certification level, dietary needs, special occasions, questions…"></textarea>
-            </div>
+            </fieldset>
 
             <!-- Spam honeypot: humans never see or fill this -->
             <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
