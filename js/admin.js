@@ -381,15 +381,100 @@ function downloadFile(name, content, mime) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function exportDataJs() {
+function buildDataJs() {
   const header =
     "/* ============================================================================\n" +
     " *  " + (state.company.name || "Site") + " — website content\n" +
-    " *  Exported from the Manage dashboard on " + new Date().toLocaleString() + ".\n" +
-    " *  Upload this file to your host's js/ folder (replacing the old data.js)\n" +
-    " *  to publish these changes to everyone. You can still hand-edit it too.\n" +
+    " *  Saved from the Manage dashboard on " + new Date().toLocaleString() + ".\n" +
+    " *  This file holds everything shown on the site. You can hand-edit it too.\n" +
     " * ============================================================================ */\n\n";
-  downloadFile("data.js", header + "const SITE = " + JSON.stringify(state, null, 2) + ";\n", "text/javascript");
+  return header + "const SITE = " + JSON.stringify(state, null, 2) + ";\n";
+}
+
+function exportDataJs() {
+  downloadFile("data.js", buildDataJs(), "text/javascript");
+}
+
+/* ---- Online publishing (writes data.js to GitHub) ------------------- */
+function renderGhPanel() {
+  const el = document.getElementById("gh-panel");
+  if (!el) return;
+
+  if (ghGetToken()) {
+    el.innerHTML = `
+      <p>✅ Connected to <strong>${GH_CONFIG.owner}/${GH_CONFIG.repo}</strong>.
+      Publishing sends your changes to the live site — visible to everyone in about a minute.</p>
+      <div class="modal__actions">
+        <button class="abtn abtn--gold" id="btn-publish-online">↑ Publish online now</button>
+        <button class="abtn abtn--danger" id="btn-disconnect">Disconnect</button>
+      </div>
+      <p id="gh-result" class="panel__intro" style="margin-top:12px;"></p>`;
+    document.getElementById("btn-publish-online").addEventListener("click", publishOnline);
+    document.getElementById("btn-disconnect").addEventListener("click", () => {
+      ghClearToken();
+      renderGhPanel();
+    });
+  } else {
+    el.innerHTML = `
+      <p>Connect once to publish straight to your live site. Your token is stored only in this
+      browser — never in the site's code.</p>
+      <ol>
+        <li>Open <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub → Fine-grained tokens</a> → <em>Generate new token</em>.</li>
+        <li><strong>Repository access</strong> → Only select repositories → <strong>${GH_CONFIG.repo}</strong>.</li>
+        <li><strong>Permissions</strong> → Repository permissions → <strong>Contents: Read and write</strong>.</li>
+        <li>Generate, copy the token, paste it below, and click Connect.</li>
+      </ol>
+      <div class="field"><label>Access token</label>
+        <input type="password" id="gh-token" placeholder="github_pat_…" autocomplete="off"></div>
+      <div class="modal__actions">
+        <button class="abtn abtn--gold" id="btn-connect">Connect</button>
+      </div>
+      <p id="gh-result" class="panel__intro" style="margin-top:12px;"></p>`;
+    document.getElementById("btn-connect").addEventListener("click", connectGithub);
+    const input = document.getElementById("gh-token");
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") connectGithub();
+    });
+  }
+}
+
+async function connectGithub() {
+  const input = document.getElementById("gh-token");
+  const result = document.getElementById("gh-result");
+  const token = (input.value || "").trim();
+  if (!token) {
+    result.textContent = "Please paste your token first.";
+    return;
+  }
+  ghSetToken(token);
+  result.textContent = "Checking…";
+  try {
+    await ghVerify();
+    renderGhPanel();
+  } catch (err) {
+    ghClearToken();
+    renderGhPanel();
+    const r = document.getElementById("gh-result");
+    if (r) r.textContent = "Couldn't connect: " + err.message;
+  }
+}
+
+async function publishOnline() {
+  const result = document.getElementById("gh-result");
+  const btn = document.getElementById("btn-publish-online");
+  if (btn) btn.disabled = true;
+  if (result) result.textContent = "Publishing…";
+  setStatus("Publishing to your live site…", "is-dirty");
+  try {
+    await ghPutFile(buildDataJs(), "Update site content via admin — " + new Date().toLocaleString());
+    if (result) result.textContent = "✅ Published! Your live site will show the changes in about a minute.";
+    setStatus("Published to your live site", "");
+  } catch (err) {
+    if (result) result.textContent = "❌ " + err.message;
+    setStatus("Publish failed", "is-error");
+  } finally {
+    if (btn) btn.disabled = false;
+  }
 }
 
 function importFromFile(file) {
@@ -460,7 +545,10 @@ function init() {
   });
 
   const modal = document.getElementById("publish-modal");
-  document.getElementById("btn-publish").addEventListener("click", () => modal.classList.add("open"));
+  document.getElementById("btn-publish").addEventListener("click", () => {
+    renderGhPanel();
+    modal.classList.add("open");
+  });
   document.getElementById("btn-close-modal").addEventListener("click", () => modal.classList.remove("open"));
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.classList.remove("open");

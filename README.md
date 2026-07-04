@@ -44,14 +44,34 @@ the footer of every page). It gives you friendly forms to edit everything:
 How it saves:
 
 - Edits are stored **in your browser** and the site preview updates immediately.
-- Click **Publish changes → Download data.js**, then upload that file to your
-  host's `js/` folder (replacing the old one) to make the changes live for everyone.
+- Click **Publish changes**, then **Publish online** to send changes straight to your
+  live site (GitHub) — it updates for everyone in about a minute, no re-upload needed.
+- Or click **Download data.js** as a backup / to upload manually.
 - **Import** loads a `.json` backup or an exported `data.js`. **Reset** restores the
   currently published content.
 
+### Publish online (edit the live site from anywhere)
+
+The dashboard is deployed at your **hidden admin URL**:
+
+```
+https://yeuvern1999-cloud.github.io/ascend-vacation/manage.html
+```
+
+Bookmark it. To enable one-click online publishing you connect once with a GitHub
+token (stored **only in your browser**, never in the code):
+
+1. In the dashboard, click **Publish changes** → follow the on-screen steps to create a
+   **fine-grained token** at GitHub → Settings → Developer settings → Fine-grained tokens.
+2. Give it access to **only the `ascend-vacation` repo**, with **Contents: Read and write**.
+3. Paste it, click **Connect**, then use **Publish online** whenever you want changes to go live.
+
+> Security: treat that token like a password — don't connect on a shared computer, and
+> you can revoke it anytime on GitHub. Because the token is limited to this one repo, a
+> leak could at worst let someone edit this website (not your whole account).
+
 > Tip: for the in-browser preview to work reliably, view the site through a local
-> server (see below) rather than opening files directly. Publishing/exporting works
-> either way.
+> server (see below) rather than opening files directly.
 
 ### 2. Editing `js/data.js` by hand
 
@@ -98,18 +118,19 @@ Vessel/
 │   ├── data.js       ← YOUR CONTENT (published defaults)
 │   ├── store.js      Bridges saved edits with the published content
 │   ├── main.js       Site behaviour (rarely needs editing)
-│   └── admin.js      Manage dashboard behaviour
+│   ├── admin.js      Manage dashboard behaviour
+│   └── github.js     Online publishing to your GitHub repo
 ├── images/           Boat photos (cropped from your spec sheet)
 └── README.md
 ```
 
 ## What's next?
 
-This version is **browse-only**. When you're ready, natural next steps are:
+This version is **browse-only**, but you can now edit content online and publish to the
+live site from the dashboard. Natural next steps are:
 
 1. A **contact / enquiry form** so guests can request a spot.
 2. **Online booking with payments** (e.g. Stripe deposits).
-3. A **hosted backend** so dashboard edits go live automatically (no re-uploading)
-   and you can view/manage bookings — the natural upgrade from today's export flow.
+3. A **custom domain** (e.g. `ascendvacation.com`) pointed at GitHub Pages.
 
 Just say the word and we can add any of these.

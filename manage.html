@@ -48,10 +48,11 @@
     <!-- ===== Main ===== -->
     <main class="admin-main">
       <div class="admin-note">
-        <strong>How saving works:</strong> Edits are saved in this browser instantly, so
-        <a href="index.html" target="_blank" rel="noopener">your site preview</a> updates right away.
-        To make changes visible to everyone, click <strong>Publish changes</strong> to download an updated
-        <code>data.js</code>, then upload it to your host (replacing the old one).
+        <strong>How saving works:</strong> Edits save in this browser instantly, so
+        <a href="index.html" target="_blank" rel="noopener">your preview</a> updates right away.
+        To make them live for everyone, click <strong>Publish changes</strong> and use
+        <strong>Publish online</strong> (connect once with a GitHub token) — your site updates in about a
+        minute, no re-upload needed. Downloading <code>data.js</code> is still available as a backup.
       </div>
 
       <section class="panel active" data-panel="brand"></section>
@@ -68,15 +69,13 @@
   <div class="modal-overlay" id="publish-modal">
     <div class="modal">
       <h2>Publish your changes</h2>
-      <p>This downloads an updated <code>data.js</code> containing everything you've edited.</p>
-      <ol>
-        <li>Click <strong>Download data.js</strong> below.</li>
-        <li>Put the file into your site's <code>js/</code> folder, replacing the old <code>data.js</code>.</li>
-        <li>Re-upload to your host. Your live site now shows the changes.</li>
-      </ol>
-      <div class="modal__actions">
-        <button class="abtn abtn--gold" id="btn-download">↓ Download data.js</button>
-        <button class="abtn abtn--ghost-dark" id="btn-download-json">Download backup (.json)</button>
+
+      <!-- Online publishing (connect / publish) is rendered here by admin.js -->
+      <div id="gh-panel"></div>
+
+      <div class="modal__actions" style="margin-top:18px; border-top:1px solid var(--line); padding-top:16px;">
+        <button class="abtn abtn--ghost-dark" id="btn-download">↓ Download data.js</button>
+        <button class="abtn abtn--ghost-dark" id="btn-download-json">Backup (.json)</button>
         <button class="abtn abtn--ghost-dark" id="btn-close-modal">Close</button>
       </div>
     </div>
@@ -84,6 +83,7 @@
 
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/github.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>
