@@ -221,5 +221,18 @@ const SITE = {
     "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1682687982501-1e58ab814714?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1439405326854-014607f694d7?auto=format&fit=crop&w=800&q=80"
-  ]
+  ],
+
+  /* ---- Booking request form ------------------------------------------- */
+  /* The form emails you each request via Web3Forms (free). To switch it on:
+       1. Go to https://web3forms.com, enter your email, get an Access Key.
+       2. Paste the key below (or set it in the Manage dashboard).
+     The key is safe to keep here — it only lets the form send you email.       */
+  booking: {
+    accessKey: "",
+    intro:
+      "Tell us which expedition you have in mind and we'll check availability and email you back within 24 hours. No payment now — this is a request, not a charge.",
+    successMessage:
+      "Thank you! Your booking request is in. We'll email you within 24 hours to confirm availability and the next steps."
+  }
 };

@@ -12,6 +12,7 @@ Just open it in a browser or upload the files to any host.
 | Trips           | `trips.html`    | All expeditions with day-by-day itineraries     |
 | Schedule        | `schedule.html` | Upcoming departures with availability badges    |
 | The Boat        | `boat.html`     | Cabins, amenities, crew and a photo gallery     |
+| Book            | `book.html`     | Booking request form (emails each request to you) |
 
 ## View the site
 
@@ -33,10 +34,11 @@ npx serve
 
 ### 1. The Manage dashboard (recommended, no coding)
 
-Open **`manage.html`** in your browser (there's also a small “Manage site” link in
-the footer of every page). It gives you friendly forms to edit everything:
+Open **`manage.html`** in your browser (the URL is unlisted — bookmark it). It gives
+you friendly forms to edit everything:
 
-- **Brand & contact** — name, tagline, boat name, phone, email, location, socials
+- **Brand & contact** — name, tagline, boat name, phone, email, location, socials,
+  and the **Booking form** access key + messages (see “Booking form” below)
 - **Trips** — add/edit/remove expeditions, prices, highlights, itineraries, photos
 - **Schedule** — add/edit/remove departures, dates and availability
 - **Cabins, Amenities, Crew, Gallery** — full add/edit/remove with photo previews
@@ -72,6 +74,28 @@ token (stored **only in your browser**, never in the code):
 
 > Tip: for the in-browser preview to work reliably, view the site through a local
 > server (see below) rather than opening files directly.
+
+### Booking form
+
+The **Book** page (`book.html`) lets guests request a spot: they pick an expedition
+and departure, add their details, and submit. There's **no payment** — each request is
+**emailed to you** so you can confirm availability and follow up.
+
+It uses [Web3Forms](https://web3forms.com) (free), which works on a static site with no
+backend. To switch it on:
+
+1. Go to **web3forms.com**, enter the email where you want to receive requests, and copy
+   the **Access Key** it gives you.
+2. In the Manage dashboard → **Brand & contact → Booking form**, paste the key into
+   **Web3Forms access key** (or set `booking.accessKey` in `js/data.js`).
+3. **Publish** — that's it. Test it by sending yourself a request from the Book page.
+
+Until a key is added, the form validates and shows a friendly "not connected yet" note
+instead of sending. The access key is safe to keep in the code — it only lets the form
+email you; it can't read anything.
+
+> "Book this trip" buttons on the Trips/Home cards pre-select that expedition on the
+> booking form via a `?trip=` link.
 
 ### 2. Editing `js/data.js` by hand
 
@@ -109,6 +133,7 @@ Vessel/
 ├── trips.html        Expeditions
 ├── schedule.html     Departure schedule
 ├── boat.html         About the boat
+├── book.html         Booking request form
 ├── manage.html       ← Manage dashboard (edit content, no coding)
 ├── css/
 │   ├── styles.css    Site styling (palette variables at the top)
@@ -125,11 +150,11 @@ Vessel/
 
 ## What's next?
 
-This version is **browse-only**, but you can now edit content online and publish to the
-live site from the dashboard. Natural next steps are:
+Guests can now **browse and request bookings** (emailed to you), and you can edit
+content online and publish to the live site from the dashboard. Natural next steps:
 
-1. A **contact / enquiry form** so guests can request a spot.
-2. **Online booking with payments** (e.g. Stripe deposits).
-3. A **custom domain** (e.g. `ascendvacation.com`) pointed at GitHub Pages.
+1. **Online booking with payments** (e.g. Stripe deposits) — needs a small backend.
+2. A **custom domain** (e.g. `ascendvacation.com`) pointed at GitHub Pages.
+3. **Automatic availability** that marks departures sold out once full.
 
 Just say the word and we can add any of these.

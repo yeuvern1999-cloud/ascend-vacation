@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Trip — Ascend Vacation</title>
+  <meta name="description" content="Request your place aboard MV Ocean Explorer. Choose an expedition and departure, and we'll confirm availability within 24 hours." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="book">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html">
+        <span class="brand__mark">⚓</span>
+        <span data-company-name>Ascend Vacation</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html" data-nav="home">Home</a></li>
+        <li><a href="trips.html" data-nav="trips">Trips</a></li>
+        <li><a href="schedule.html" data-nav="schedule">Schedule</a></li>
+        <li><a href="boat.html" data-nav="boat">The Boat</a></li>
+        <li class="nav__cta"><a class="btn btn--primary" href="book.html">Book now</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="page-hero page-hero--book">
+    <div class="container">
+      <span class="eyebrow" style="color: var(--aqua);">Reserve your cabin</span>
+      <h1>Book your voyage</h1>
+      <p>Small groups fill up fast. Send a request and we'll hold your spot while we confirm the details.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="book-layout">
+        <!-- Info column -->
+        <aside class="book-aside reveal">
+          <h2>How booking works</h2>
+          <ol class="book-steps">
+            <li><strong>Send your request</strong> — pick a trip and date, no payment needed.</li>
+            <li><strong>We confirm availability</strong> — you'll hear back within 24 hours.</li>
+            <li><strong>Secure your spot</strong> — we'll arrange the deposit and paperwork.</li>
+          </ol>
+          <div class="book-contact">
+            <p>Prefer to talk it through?</p>
+            <a data-phone href="#" class="book-contact__line">Phone</a>
+            <a data-email href="#" class="book-contact__line">Email</a>
+            <span data-location class="book-contact__line book-contact__loc">Bali, Indonesia</span>
+          </div>
+        </aside>
+
+        <!-- Form column -->
+        <div class="book-formwrap reveal">
+          <p class="book-intro" data-booking-intro></p>
+
+          <form id="booking-form" class="bform" novalidate>
+            <div class="bform__row">
+              <div class="bform__field">
+                <label for="bk-name">Full name <span class="req">*</span></label>
+                <input id="bk-name" name="name" type="text" autocomplete="name" required />
+              </div>
+              <div class="bform__field">
+                <label for="bk-email">Email <span class="req">*</span></label>
+                <input id="bk-email" name="email" type="email" autocomplete="email" required />
+              </div>
+            </div>
+
+            <div class="bform__row">
+              <div class="bform__field">
+                <label for="bk-phone">Phone</label>
+                <input id="bk-phone" name="phone" type="tel" autocomplete="tel" />
+              </div>
+              <div class="bform__field">
+                <label for="bk-guests">Number of guests</label>
+                <input id="bk-guests" name="guests" type="number" min="1" max="16" value="2" />
+              </div>
+            </div>
+
+            <div class="bform__row">
+              <div class="bform__field">
+                <label for="bk-trip">Expedition <span class="req">*</span></label>
+                <select id="bk-trip" name="trip" required></select>
+              </div>
+              <div class="bform__field">
+                <label for="bk-departure">Preferred departure</label>
+                <select id="bk-departure" name="departure"></select>
+              </div>
+            </div>
+
+            <div class="bform__field">
+              <label for="bk-cabin">Cabin preference</label>
+              <select id="bk-cabin" name="cabin"></select>
+            </div>
+
+            <div class="bform__field">
+              <label for="bk-message">Anything else?</label>
+              <textarea id="bk-message" name="message" rows="4" placeholder="Dive certification level, dietary needs, special occasions, questions…"></textarea>
+            </div>
+
+            <!-- Spam honeypot: humans never see or fill this -->
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+            <button type="submit" class="btn btn--primary bform__submit">Send booking request</button>
+            <p class="bform__note" id="bk-note" role="status"></p>
+          </form>
+
+          <div class="bform__success" id="bk-success" hidden>
+            <div class="bform__success-ic">✓</div>
+            <h3>Request received</h3>
+            <p id="bk-success-msg"></p>
+            <a class="btn btn--dark" href="index.html">Back to home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__about">
+          <a class="brand" href="index.html">
+            <span class="brand__mark">⚓</span>
+            <span data-company-name>Ascend Vacation</span>
+          </a>
+          <p data-tagline>Liveaboard diving & sailing adventures</p>
+          <div class="footer__social" data-social></div>
+        </div>
+        <div class="footer__col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="trips.html">Expeditions</a></li>
+            <li><a href="schedule.html">Departure schedule</a></li>
+            <li><a href="boat.html">The boat</a></li>
+            <li><a href="book.html">Book a trip</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Get in touch</h4>
+          <ul>
+            <li><a data-phone href="#">Phone</a></li>
+            <li><a data-email href="#">Email</a></li>
+            <li data-location>Bali, Indonesia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        © <span data-year>2026</span> <span data-company-name>Ascend Vacation</span>. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

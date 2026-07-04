@@ -107,6 +107,17 @@ function renderBrand() {
         ${textField("social", "youtube", "YouTube", { ph: "https://youtube.com/…" })}
       </div>
       <p class="panel__intro" style="margin:12px 0 0;">Leave a field empty to hide that icon.</p>
+    </div>
+    <div class="card">
+      <div class="card__bar"><span class="card__title">Booking form</span></div>
+      <p class="panel__intro" style="margin:0 0 14px;">
+        The Book page emails you each request. Get a free access key at
+        <a href="https://web3forms.com" target="_blank" rel="noopener">web3forms.com</a>
+        (enter your email, copy the key) and paste it below. Requests will arrive at that email.
+      </p>
+      ${textField("booking", "accessKey", "Web3Forms access key", { ph: "e.g. a1b2c3d4-…", hint: "leave empty to keep the form off" })}
+      ${textareaField("booking", "intro", "Form intro text", { rows: 3 })}
+      ${textareaField("booking", "successMessage", "Thank-you message", { rows: 2, hint: "shown after a request is sent" })}
     </div>`;
 }
 
@@ -279,6 +290,10 @@ function objFor(scope, index) {
   if (scope === "social") {
     state.company.social = state.company.social || {};
     return state.company.social;
+  }
+  if (scope === "booking") {
+    state.booking = state.booking || {};
+    return state.booking;
   }
   if (scope === "root") return state;
   return state[scope][+index];
@@ -526,6 +541,7 @@ function init() {
   });
   state.company = state.company || {};
   state.company.social = state.company.social || {};
+  state.booking = state.booking || {};
 
   renderAll();
 

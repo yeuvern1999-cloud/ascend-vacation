@@ -181,7 +181,7 @@ function tripCardHTML(trip, withItinerary = false) {
             <small>from</small>
             <strong>${money(trip.priceFrom, trip.currency)}</strong>
           </div>
-          <a class="btn btn--dark" href="schedule.html">See dates</a>
+          <a class="btn btn--dark" href="book.html?trip=${trip.id}">Book this trip</a>
         </div>
         ${itinerary}
       </div>
@@ -294,6 +294,147 @@ function renderBoat() {
 }
 
 /* ==========================================================================
+   Booking page
+   ========================================================================== */
+function renderBooking() {
+  const form = $("#booking-form");
+  if (!form) return;
+
+  const booking = DATA.booking || {};
+  const introEl = $("[data-booking-intro]");
+  if (introEl && booking.intro) introEl.textContent = booking.intro;
+
+  const tripSel = $("#bk-trip");
+  const depSel = $("#bk-departure");
+  const cabinSel = $("#bk-cabin");
+  const note = $("#bk-note");
+
+  // Which trip should be preselected? (from ?trip=id)
+  const preselectId = new URLSearchParams(location.search).get("trip");
+
+  // Expedition options.
+  tripSel.innerHTML =
+    `<option value="">Choose an expedition…</option>` +
+    DATA.trips
+      .map(
+        (t) =>
+          `<option value="${t.id}">${t.name} — ${t.destination} (${t.nights} nights)</option>`
+      )
+      .join("");
+  if (preselectId && DATA.trips.some((t) => t.id === preselectId)) {
+    tripSel.value = preselectId;
+  }
+
+  // Cabin options.
+  cabinSel.innerHTML =
+    `<option value="No preference">No preference</option>` +
+    DATA.cabins
+      .map((c) => `<option value="${c.name}">${c.name} — from ${money(c.priceFrom)}pp</option>`)
+      .join("");
+
+  // Departure options depend on the chosen trip.
+  const fillDepartures = () => {
+    const tid = tripSel.value;
+    const deps = [...DATA.departures]
+      .filter((d) => d.tripId === tid)
+      .sort((a, b) => a.depart.localeCompare(b.depart));
+    const opts = deps
+      .map((d) => {
+        const status = d.status || "available";
+        const label =
+          formatDate(d.depart) +
+          (status !== "available" ? ` — ${STATUS_LABELS[status]}` : "");
+        const disabled = status === "soldout" ? " disabled" : "";
+        return `<option value="${formatDate(d.depart)}"${disabled}>${label}</option>`;
+      })
+      .join("");
+    depSel.innerHTML =
+      `<option value="I'm flexible / not sure yet">I'm flexible / not sure yet</option>` +
+      opts;
+  };
+  fillDepartures();
+  tripSel.addEventListener("change", fillDepartures);
+
+  // Submit → Web3Forms (emails the request to you). Public access key is safe.
+  const submitBtn = $(".bform__submit", form);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    note.textContent = "";
+    note.className = "bform__note";
+
+    // Basic validation.
+    let firstBad = null;
+    ["#bk-name", "#bk-email", "#bk-trip"].forEach((sel) => {
+      const el = $(sel, form);
+      const ok = el.value.trim() && el.checkValidity();
+      el.classList.toggle("invalid", !ok);
+      if (!ok && !firstBad) firstBad = el;
+    });
+    if (firstBad) {
+      note.textContent = "Please fill in your name, a valid email and an expedition.";
+      note.classList.add("error");
+      firstBad.focus();
+      return;
+    }
+
+    const key = ((DATA.booking && DATA.booking.accessKey) || "").trim();
+    if (!key) {
+      note.textContent =
+        "Booking isn't connected yet. (Site owner: add your Web3Forms access key in the Manage dashboard.)";
+      note.classList.add("info");
+      return;
+    }
+
+    const fd = new FormData(form);
+    const trip = DATA.trips.find((t) => t.id === fd.get("trip"));
+    const payload = {
+      access_key: key,
+      subject: `New booking request — ${fd.get("name")}`,
+      from_name: `${DATA.company.name} booking form`,
+      // lowercase name/email let Web3Forms set the sender + Reply-To automatically
+      name: fd.get("name"),
+      email: fd.get("email"),
+      Phone: fd.get("phone") || "—",
+      Guests: fd.get("guests") || "—",
+      Expedition: trip ? `${trip.name} (${trip.destination})` : "—",
+      "Preferred departure": fd.get("departure") || "—",
+      "Cabin preference": fd.get("cabin") || "—",
+      Message: fd.get("message") || "—",
+      botcheck: fd.get("botcheck") ? true : false
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.success) {
+        const successMsg =
+          (DATA.booking && DATA.booking.successMessage) ||
+          "Thank you! Your booking request has been sent.";
+        $("#bk-success-msg").textContent = successMsg;
+        form.hidden = true;
+        $("#bk-success").hidden = false;
+        window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 120, behavior: "smooth" });
+      } else {
+        throw new Error(data.message || "Submission failed");
+      }
+    } catch (err) {
+      note.textContent =
+        "Sorry, something went wrong sending your request. Please try again or email us directly.";
+      note.classList.add("error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send booking request";
+    }
+  });
+}
+
+/* ==========================================================================
    Boot
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -302,6 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTrips();
   renderSchedule();
   renderBoat();
+  renderBooking();
 
   // Re-observe any cards that were injected after initial reveal setup.
   const late = $$(".reveal:not(.visible)");

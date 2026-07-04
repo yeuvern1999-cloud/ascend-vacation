@@ -427,6 +427,11 @@ h4 {
     url("../images/boat-side.jpg") center / cover no-repeat;
 }
 
+.page-hero--book {
+  background: linear-gradient(180deg, rgba(6, 24, 43, 0.5), rgba(13, 36, 64, 0.8)),
+    url("../images/boat-sea.jpg") center / cover no-repeat;
+}
+
 /* ==========================================================================
    Intro / features strip
    ========================================================================== */
@@ -1041,6 +1046,13 @@ h4 {
   font-size: 1.05rem;
 }
 
+.cta-band__actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 /* ==========================================================================
    Footer
    ========================================================================== */
@@ -1146,6 +1158,211 @@ h4 {
 }
 
 /* ==========================================================================
+   Booking form
+   ========================================================================== */
+.book-layout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.book-aside h2 {
+  font-size: 1.6rem;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+
+.book-steps {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  gap: 18px;
+  margin-bottom: 34px;
+}
+
+.book-steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 48px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.book-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--aqua);
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+}
+
+.book-steps strong {
+  color: var(--navy);
+}
+
+.book-contact {
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+}
+
+.book-contact p {
+  color: var(--navy);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.book-contact__line {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+a.book-contact__line:hover {
+  color: var(--teal);
+}
+
+.book-contact__loc {
+  cursor: default;
+}
+
+/* Form card */
+.book-formwrap {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 38px;
+  box-shadow: var(--shadow-lg);
+}
+
+.book-intro {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 26px;
+}
+
+.bform__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.bform__field {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bform__field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 7px;
+}
+
+.bform__field .req {
+  color: var(--coral);
+}
+
+.bform__field input,
+.bform__field select,
+.bform__field textarea {
+  font: inherit;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.bform__field textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.bform__field input:focus,
+.bform__field select:focus,
+.bform__field textarea:focus {
+  outline: none;
+  background: var(--white);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(156, 124, 58, 0.16);
+}
+
+.bform__field input.invalid,
+.bform__field select.invalid {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(185, 130, 46, 0.14);
+}
+
+.bform__submit {
+  width: 100%;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.bform__submit[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.bform__note {
+  margin-top: 14px;
+  font-size: 0.92rem;
+  text-align: center;
+  min-height: 1em;
+}
+
+.bform__note.error {
+  color: var(--coral);
+}
+
+.bform__note.info {
+  color: var(--muted);
+}
+
+/* Success state */
+.bform__success {
+  text-align: center;
+  padding: 30px 10px 10px;
+}
+
+.bform__success-ic {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--aqua);
+  font-size: 1.9rem;
+  display: grid;
+  place-items: center;
+}
+
+.bform__success h3 {
+  color: var(--navy);
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.bform__success p {
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0 auto 22px;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 @media (max-width: 900px) {
@@ -1161,6 +1378,10 @@ h4 {
   .crew-grid,
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .book-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 }
 
@@ -1210,6 +1431,13 @@ h4 {
   .crew-grid,
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+  .bform__row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .book-formwrap {
+    padding: 26px 20px;
   }
   .schedule thead {
     display: none;
