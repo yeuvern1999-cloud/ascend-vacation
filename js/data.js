@@ -1,6 +1,6 @@
 /* ============================================================================
  *  Ascend Vacation — website content
- *  Saved from the Manage dashboard on 7/4/2026, 7:42:58 PM.
+ *  Saved from the Manage dashboard on 7/4/2026, 8:09:49 PM.
  *  This file holds everything shown on the site. You can hand-edit it too.
  * ============================================================================ */
 
@@ -155,7 +155,7 @@ const SITE = {
     {
       "name": "Lower Deck Twin",
       "occupancy": "2 guests",
-      "priceFrom": 1850,
+      "priceFrom": 4250,
       "image": "https://images.unsplash.com/photo-1559599189-fe84dea4eb79?auto=format&fit=crop&w=1000&q=80",
       "features": [
         "Twin beds",
@@ -167,7 +167,7 @@ const SITE = {
     {
       "name": "Main Deck Double",
       "occupancy": "2 guests",
-      "priceFrom": 2400,
+      "priceFrom": 4250,
       "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1000&q=80",
       "features": [
         "Two single-bed",
@@ -177,7 +177,7 @@ const SITE = {
     {
       "name": "Single room",
       "occupancy": "1 guest",
-      "priceFrom": 4500,
+      "priceFrom": 4300,
       "image": "images/single-room.jpg",
       "features": [
         "Enjoy your own private space with a cozy single cabin, thoughtfully designed for solo travelers seeking comfort, privacy, and convenience throughout their liveaboard journey."
@@ -186,7 +186,7 @@ const SITE = {
     {
       "name": "Lower Deck Triple",
       "occupancy": "3 guests",
-      "priceFrom": 4000,
+      "priceFrom": 4200,
       "image": "images/triple-room.png",
       "features": [
         "A comfortable cabin accommodating up to three guests, equipped with cozy beds and all the essentials for a relaxing stay on board."
