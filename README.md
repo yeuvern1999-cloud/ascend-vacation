@@ -83,10 +83,9 @@ and you just change the text between the quotes.
 
 ### Photos
 
-- **Your boat renders** are already cropped from the design spec sheet and live in
-  the `images/` folder (`boat-hero.png`, `boat-side.png`, `boat-front.png`,
-  `boat-aft.png`). They're used for the home hero, the About-the-boat page and the
-  gallery. `boat-scheme.png` is the original spec sheet, kept for reference.
+- **Your boat photos** live in the `images/` folder: `boat-sea.jpg` (home hero),
+  `boat-side.jpg` (boat page + intro + gallery), and `boat-whole.jpg` (the annotated
+  design spec sheet, kept for reference — not shown on the public site).
 - **Cabin interiors, crew portraits and reef shots** are still online placeholders.
   To use your own: drop a photo into `images/` and, in `js/data.js`, replace the
   image link with `"images/your-photo.jpg"`.

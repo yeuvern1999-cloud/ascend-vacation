@@ -215,11 +215,11 @@ const SITE = {
   /* Your own boat photos live in the /images folder. Reef shots are online
      placeholders — swap them for your own underwater photos when ready.      */
   gallery: [
-    "images/boat-side.png",
-    "images/boat-aft.png",
-    "images/boat-front.png",
+    "images/boat-sea.jpg",
+    "images/boat-side.jpg",
     "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1682687982501-1e58ab814714?auto=format&fit=crop&w=800&q=80"
+    "https://images.unsplash.com/photo-1682687982501-1e58ab814714?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1439405326854-014607f694d7?auto=format&fit=crop&w=800&q=80"
   ]
 };

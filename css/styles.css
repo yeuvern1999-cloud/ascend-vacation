@@ -314,7 +314,7 @@ h4 {
   color: var(--white);
   background: linear-gradient(90deg, rgba(6, 24, 43, 0.82) 0%, rgba(6, 24, 43, 0.5) 45%, rgba(6, 24, 43, 0.3) 100%),
     linear-gradient(180deg, rgba(6, 24, 43, 0.35), rgba(6, 24, 43, 0.55)),
-    url("../images/boat-hero.png") center / cover no-repeat;
+    url("../images/boat-sea.jpg") center / cover no-repeat;
 }
 
 .hero::after {
@@ -424,7 +424,7 @@ h4 {
 
 .page-hero--boat {
   background: linear-gradient(180deg, rgba(6, 24, 43, 0.45), rgba(13, 36, 64, 0.72)),
-    url("../images/boat-side.png") center / cover no-repeat;
+    url("../images/boat-side.jpg") center / cover no-repeat;
 }
 
 /* ==========================================================================
