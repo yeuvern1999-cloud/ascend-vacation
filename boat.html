@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Boat — Ascend Vacation</title>
+  <meta name="description" content="Step aboard MV Ocean Explorer with Ascend Vacation: air-conditioned cabins, a spacious dive deck, chef-cooked meals and a crew who make every voyage feel like home." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="boat">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html">
+        <span class="brand__mark">⚓</span>
+        <span data-company-name>Ascend Vacation</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html" data-nav="home">Home</a></li>
+        <li><a href="trips.html" data-nav="trips">Trips</a></li>
+        <li><a href="schedule.html" data-nav="schedule">Schedule</a></li>
+        <li><a href="boat.html" data-nav="boat">The Boat</a></li>
+        <li class="nav__cta"><a class="btn btn--primary" href="schedule.html">View departures</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="page-hero page-hero--boat">
+    <div class="container">
+      <span class="eyebrow" style="color: var(--aqua);">Your home at sea</span>
+      <h1 data-boat-name>MV Ocean Explorer</h1>
+      <p>A boutique liveaboard built for divers — comfortable cabins, a serious dive deck, and space to breathe.</p>
+    </div>
+  </section>
+
+  <!-- Cabins -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Cabins</span>
+        <h2>Rest well between dives</h2>
+        <p>Every cabin is air-conditioned with an en-suite bathroom. Choose the space that suits you.</p>
+      </div>
+      <div class="cabin-grid" data-cabins></div>
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="section amenities">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">On board</span>
+        <h2>Thoughtfully equipped, end to end</h2>
+      </div>
+      <div class="amenity-grid" data-amenities></div>
+    </div>
+  </section>
+
+  <!-- Crew -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">The crew</span>
+        <h2>The people who make it unforgettable</h2>
+        <p>A crew of eight looks after sixteen guests — so you're always in good hands.</p>
+      </div>
+      <div class="crew-grid" data-crew></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section" style="background: var(--cream);">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Gallery</span>
+        <h2>Life aboard</h2>
+      </div>
+      <div class="gallery-grid" data-gallery></div>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="cta-band reveal">
+      <h2>Come aboard</h2>
+      <p>Pick a departure and start your next adventure at sea.</p>
+      <a class="btn btn--ghost" href="schedule.html">See departures</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__about">
+          <a class="brand" href="index.html">
+            <span class="brand__mark">⚓</span>
+            <span data-company-name>Ascend Vacation</span>
+          </a>
+          <p data-tagline>Liveaboard diving & sailing adventures</p>
+          <div class="footer__social" data-social></div>
+        </div>
+        <div class="footer__col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="trips.html">Expeditions</a></li>
+            <li><a href="schedule.html">Departure schedule</a></li>
+            <li><a href="boat.html">The boat</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Get in touch</h4>
+          <ul>
+            <li><a data-phone href="#">Phone</a></li>
+            <li><a data-email href="#">Email</a></li>
+            <li data-location>Bali, Indonesia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        © <span data-year>2026</span> <span data-company-name>Ascend Vacation</span>. All rights reserved.
+        <a href="manage.html" class="footer__manage">Manage site</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

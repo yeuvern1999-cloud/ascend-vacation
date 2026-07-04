@@ -1,0 +1,11 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / tooling
+.vscode/
+*.log
+
+# Temporary preview screenshots
+images/_preview_*.png

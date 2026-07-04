@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage — Ascend Vacation</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ===== Top bar ===== -->
+  <header class="admin-top">
+    <div style="display:flex; align-items:center;">
+      <span class="brand">
+        <span class="brand__mark">⚓</span>
+        <span data-company-name>Ascend Vacation</span>
+      </span>
+      <span class="admin-top__tag">Manage</span>
+    </div>
+    <div class="admin-top__actions">
+      <span class="admin-status" id="status">All changes saved</span>
+      <a class="abtn" href="index.html" target="_blank" rel="noopener">↗ View site</a>
+      <button class="abtn" id="btn-import">↑ Import</button>
+      <button class="abtn abtn--danger" id="btn-reset">Reset</button>
+      <button class="abtn abtn--gold" id="btn-publish">Publish changes</button>
+    </div>
+  </header>
+
+  <input type="file" id="import-file" class="visually-hidden" accept=".json,application/json" />
+
+  <div class="admin-shell">
+    <!-- ===== Sidebar ===== -->
+    <nav class="admin-nav" id="admin-nav">
+      <button data-target="brand" class="active"><span class="ic">⚓</span> Brand &amp; contact</button>
+      <button data-target="trips"><span class="ic">🧭</span> Trips</button>
+      <button data-target="departures"><span class="ic">🗓️</span> Schedule</button>
+      <button data-target="cabins"><span class="ic">🛏️</span> Cabins</button>
+      <button data-target="amenities"><span class="ic">✨</span> Amenities</button>
+      <button data-target="crew"><span class="ic">👥</span> Crew</button>
+      <button data-target="gallery"><span class="ic">🖼️</span> Gallery</button>
+    </nav>
+
+    <!-- ===== Main ===== -->
+    <main class="admin-main">
+      <div class="admin-note">
+        <strong>How saving works:</strong> Edits are saved in this browser instantly, so
+        <a href="index.html" target="_blank" rel="noopener">your site preview</a> updates right away.
+        To make changes visible to everyone, click <strong>Publish changes</strong> to download an updated
+        <code>data.js</code>, then upload it to your host (replacing the old one).
+      </div>
+
+      <section class="panel active" data-panel="brand"></section>
+      <section class="panel" data-panel="trips"></section>
+      <section class="panel" data-panel="departures"></section>
+      <section class="panel" data-panel="cabins"></section>
+      <section class="panel" data-panel="amenities"></section>
+      <section class="panel" data-panel="crew"></section>
+      <section class="panel" data-panel="gallery"></section>
+    </main>
+  </div>
+
+  <!-- ===== Publish modal ===== -->
+  <div class="modal-overlay" id="publish-modal">
+    <div class="modal">
+      <h2>Publish your changes</h2>
+      <p>This downloads an updated <code>data.js</code> containing everything you've edited.</p>
+      <ol>
+        <li>Click <strong>Download data.js</strong> below.</li>
+        <li>Put the file into your site's <code>js/</code> folder, replacing the old <code>data.js</code>.</li>
+        <li>Re-upload to your host. Your live site now shows the changes.</li>
+      </ol>
+      <div class="modal__actions">
+        <button class="abtn abtn--gold" id="btn-download">↓ Download data.js</button>
+        <button class="abtn abtn--ghost-dark" id="btn-download-json">Download backup (.json)</button>
+        <button class="abtn abtn--ghost-dark" id="btn-close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

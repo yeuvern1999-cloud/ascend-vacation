@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expeditions — Ascend Vacation</title>
+  <meta name="description" content="Browse Ascend Vacation's liveaboard diving expeditions: Raja Ampat, Komodo, the Similan Islands, the Maldives and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="trips">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html">
+        <span class="brand__mark">⚓</span>
+        <span data-company-name>Ascend Vacation</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html" data-nav="home">Home</a></li>
+        <li><a href="trips.html" data-nav="trips">Trips</a></li>
+        <li><a href="schedule.html" data-nav="schedule">Schedule</a></li>
+        <li><a href="boat.html" data-nav="boat">The Boat</a></li>
+        <li class="nav__cta"><a class="btn btn--primary" href="schedule.html">View departures</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="page-hero page-hero--trips">
+    <div class="container">
+      <span class="eyebrow" style="color: var(--aqua);">Our expeditions</span>
+      <h1>Choose your ocean</h1>
+      <p>From soft-coral cathedrals to shark-filled channels — each voyage is small-group, all-inclusive and unhurried.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="trip-grid" data-all-trips></div>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="cta-band reveal">
+      <h2>Found your voyage?</h2>
+      <p>See when it sails next and which departures still have space.</p>
+      <a class="btn btn--ghost" href="schedule.html">Check the schedule</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__about">
+          <a class="brand" href="index.html">
+            <span class="brand__mark">⚓</span>
+            <span data-company-name>Ascend Vacation</span>
+          </a>
+          <p data-tagline>Liveaboard diving & sailing adventures</p>
+          <div class="footer__social" data-social></div>
+        </div>
+        <div class="footer__col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="trips.html">Expeditions</a></li>
+            <li><a href="schedule.html">Departure schedule</a></li>
+            <li><a href="boat.html">The boat</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Get in touch</h4>
+          <ul>
+            <li><a data-phone href="#">Phone</a></li>
+            <li><a data-email href="#">Email</a></li>
+            <li data-location>Bali, Indonesia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        © <span data-year>2026</span> <span data-company-name>Ascend Vacation</span>. All rights reserved.
+        <a href="manage.html" class="footer__manage">Manage site</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
