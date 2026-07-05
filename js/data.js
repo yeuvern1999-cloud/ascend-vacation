@@ -1,14 +1,14 @@
 /* ============================================================================
- *  Ascend Vacation — website content
- *  Saved from the Manage dashboard on 7/4/2026, 8:12:40 PM.
+ *  LMS Adventures — website content
+ *  Saved from the Manage dashboard on 7/5/2026, 3:09:41 PM.
  *  This file holds everything shown on the site. You can hand-edit it too.
  * ============================================================================ */
 
 const SITE = {
   "company": {
-    "name": "Ascend Vacation",
+    "name": "LMS Adventures",
     "tagline": "49m luxury dive liveaboard",
-    "boatName": "MV Ocean Explorer",
+    "boatName": "Queenesia III",
     "phone": "+60 121234567",
     "email": "hello@oceanexplorer-liveaboard.com",
     "location": "Departing from Labuan Bajo, Indonesia",
