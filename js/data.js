@@ -1,6 +1,6 @@
 /* ============================================================================
  *  LMS Adventures — website content
- *  Saved from the Manage dashboard on 7/5/2026, 3:09:41 PM.
+ *  Saved from the Manage dashboard on 7/5/2026, 3:40:17 PM.
  *  This file holds everything shown on the site. You can hand-edit it too.
  * ============================================================================ */
 
@@ -12,7 +12,7 @@ const SITE = {
     "phone": "+60 121234567",
     "email": "hello@oceanexplorer-liveaboard.com",
     "location": "Departing from Labuan Bajo, Indonesia",
-    "intro": "Wake up somewhere new every morning. Ascend Vacation runs small-group diving expeditions aboard MV Ocean Explorer — a 49-metre 3 star liveaboard — to the most remote and beautiful reefs on the planet, with a crew that treats you like family.",
+    "intro": "Wake up somewhere new every morning. LMS Adventures runs small-group diving expeditions aboard Queenesia III — a 49-metre 3 star liveaboard — to the most remote and beautiful reefs on the planet, with a crew that treats you like family.",
     "social": {
       "instagram": "https://instagram.com",
       "facebook": "https://facebook.com",
